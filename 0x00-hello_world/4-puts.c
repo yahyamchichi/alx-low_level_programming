@@ -1,4 +1,4 @@
-#include <stdio.h)
+#include<stdio.h>
 /**
 *main - main entry point
 *C HELLO WORL
