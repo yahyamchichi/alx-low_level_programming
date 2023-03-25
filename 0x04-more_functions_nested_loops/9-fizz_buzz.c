@@ -2,65 +2,37 @@
 #include <stdio.h>
 
 /**
- * main - prints the numbers from 1 to 100, followed by a new line
- * but for multiples of three prints Fizz instead of the number
- * and for the multiples of five prints Buzz
+ * main - prints a fizz buzz program
  * Return: always 0
  */
+
 int main(void)
 {
-	int i;
+	int x;
 
-	for (i = 1; i <= 100; i++)
+	for (x = 1; x <= 100; x++)
 	{
-		if (i % 3 == 0 && i % 5 == 0)
+		if ((x % 3 == 0) && (x % 5 == 0))
 		{
-			_putchar("F");
-			_putchar("i");
-			_putchar("z");
-			_putchar("z");
-			_putchar("B");
-			_putchar("u");
-			_putchar("z");
-			_putchar("z");
-			_putchar(" ");
+			printf("FizzBuzz");
 		}
-		else if (i % 3 == 0)
+		else if (x % 3 == 0)
 		{
-			_putchar("F");
-			_putchar("i");
-			_putchar("z");
-			_putchar("z");
-			_putchar(" ");
+			printf("Fizz");
 		}
-		else if (i % 5 == 0)
+		else if (x % 5 == 0)
 		{
-			_putchar("B");
-			_putchar("u");
-			_putchar("z");
-			_putchar("z");
-			_putchar(" ");
+			printf("Buzz");
 		}
 		else
 		{
-			int n = i;
-
-			do
-			{
-				_putchar(n % 10 + '0');
-
-				n /= 10;
-			}
-			while (n > 0)
-
-			_putchar(' ');
+			printf("%d", x);
+		}
+		if (x != 100)
+		{
+			printf(" ");
 		}
 	}
-	_putchar('\n');
-	return (0);
-}
-		}
-	}
-	_putchar("\n");
+	printf("\n");
 	return (0);
 }
