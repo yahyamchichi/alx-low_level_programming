@@ -1,65 +1,59 @@
-#include "main.h"
 #include <stdlib.h>
-
+#include "main.h"
 /**
- * count_words - Counts the number of words in a string.
- * @str: The string to be counted.
+ * count_words - counts the number of words in a string
+ * @str: input string
  *
- * Return: The number of words in the string.
+ * Return: number of words in str
  */
 int count_words(char *str)
 {
-	int words = 0, i, len = 0;
+	int i, count = 0;
 
-	for (i = 0; str[i]; i++)
+	for (i = 0; str[i] != '\0'; i++)
 	{
 		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
-			words++;
+			count++;
 	}
-	return (words);
+	return (count);
 }
 /**
- * strtow - Splits a string into words.
- * @str: The string to be split.
+ * strtow - splits a string into words
+ * @str: input string
  *
- * Return: If str == NULL or function fails - NULL.
- *         Otherwise - a pointer to the array of words.
+ * Return: pointer to an array of strings (words)
  */
 char **strtow(char *str)
 {
-	char **words;
-	int i, j, k, len, count = 0, wc = 0;
+	int i, j, k, n, words;
+	char **matrix, *temp;
 
 	if (str == NULL || str[0] == '\0')
 		return (NULL);
-	wc = count_words(str);
-	if (wc == 0)
+	words = count_words(str);
+	matrix = malloc((words + 1) * sizeof(char *));
+	if (matrix == NULL)
 		return (NULL);
-	words = malloc(sizeof(char *) * (wc + 1));
-	if (words == NULL)
-		return (NULL);
-	for (i = 0; str[i] && count < wc; i++)
+	for (i = 0, j = 0; j < words; i++)
 	{
-		if (str[i] != ' ')
+		if (str[i] == ' ')
+			continue;
+		for (n = i; str[n] != ' ' && str[n] != '\0'; n++)
+			;
+		temp = malloc((n - i + 1) * sizeof(char));
+		if (temp == NULL)
 		{
-			len = 0;
-			for (j = i; str[j] && str[j] != ' '; j++)
-				len++;
-			words[count] = malloc(sizeof(char) * (len + 1));
-			if (words[count] == NULL)
-			{
-				for (k = 0; k < count; k++)
-					free(words[k]);
-				free(words);
-				return (NULL);
-			}
-			for (j = i, k = 0; k < len; j++, k++)
-				words[count][k] = str[j];
-			words[count][k] = '\0';
-			count++;
-			i = j;
+			for (k = 0; k < j; k++)
+				free(matrix[k]);
+			free(matrix);
+			return (NULL);
 		}
+		for (k = 0; i < n; k++, i++)
+			temp[k] = str[i];
+		temp[k] = '\0';
+		matrix[j] = temp;
+		j++;
 	}
-	words[count] = NULL;
-	return (words);
+	matrix[j] = NULL;
+	return (matrix);
 }
